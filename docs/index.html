@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vitre JS Documentation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css/vitre.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js/vitre.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Documentation">
+        <a href="#install">Install</a>
+        <a href="#alerts">Alerts</a>
+        <a href="../examples/index.html">Examples</a>
+      </nav>
+
+      <h1>Vitre JS</h1>
+      <p>Small behavior helpers for semantic Vitre UI components.</p>
+      <p>
+        Vitre JS has no styling of its own. These docs pair it with Vitre CSS to show
+        the combined Vitre UI experience.
+      </p>
+      <ul>
+        <li>npmjs.org: <a href="https://www.npmjs.com/package/vitre-js">https://www.npmjs.com/package/vitre-js</a></li>
+        <li>GitHub repo: <a href="https://github.com/appurist/vitre-js">https://github.com/appurist/vitre-js</a></li>
+        <li>GitHub docs: <a href="https://appurist.github.io/vitre-js/">https://appurist.github.io/vitre-js/</a></li>
+        <li>Vitre CSS: <a href="https://www.npmjs.com/package/vitre-css">https://www.npmjs.com/package/vitre-css</a></li>
+      </ul>
+    </header>
+
+    <main>
+      <section id="install">
+        <h2>Install</h2>
+        <pre><code>npm install vitre-js</code></pre>
+
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css/vitre.css"&gt;
+&lt;script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js/vitre.js"&gt;&lt;/script&gt;</code></pre>
+
+        <pre><code>import { Vitre, enhance, alerts } from "vitre-js";</code></pre>
+      </section>
+
+      <section id="alerts">
+        <h2>Alerts</h2>
+        <p>
+          Alerts can use transparent native markup or a readable custom element.
+          Both forms map to the same behavior.
+        </p>
+
+        <h3>Native Markup</h3>
+        <div role="status" data-v-dismiss>
+          Saved successfully. This native status can be dismissed.
+        </div>
+
+        <pre><code>&lt;div role="status" data-v-dismiss&gt;
+  Saved successfully.
+&lt;/div&gt;</code></pre>
+
+        <h3>Custom Element</h3>
+        <vitre-alert tone="note" dismiss timeout="8">
+          This custom note will dismiss itself after eight seconds.
+        </vitre-alert>
+
+        <pre><code>&lt;vitre-alert tone="note" dismiss timeout="8"&gt;
+  This custom note will dismiss itself.
+&lt;/vitre-alert&gt;</code></pre>
+
+        <p>
+          See the <a href="../examples/index.html">kitchen sink example</a> for all currently supported alert patterns.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

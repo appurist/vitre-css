@@ -4,11 +4,7 @@ Small behavior helpers for semantic Vitre UI components.
 
 Vitre JS provides optional interactivity for semantic HTML. It does not ship styling. Pair it with [Vitre CSS](https://www.npmjs.com/package/vitre-css) when you want the full Vitre UI presentation.
 
-## WARNING
-
-This is a new library (today) under new development. It is published mostly for testing its own docs and examples from CDNs.
-
-You're free to try it, make suggestions, report problems at https://github.com/appurist/vitre-js/issues but it comes **as-is** and **without** any stated or implied warrantees. It is a **best effort** that I made for myself and I'm making it available for everyone to use for free.
+**WARNING**: This is a new library (May 2026) under new development. It is published mostly for testing its own docs and examples from CDNs. You're free to try it, make suggestions, report problems at https://github.com/appurist/vitre-js/issues but it comes **as-is** and **without** any stated or implied warrantees. It is a **best effort** that I made for myself and I'm making it available for everyone to use for free.
 
 ## Links
 

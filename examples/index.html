@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vitre JS Kitchen Sink</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css/vitre.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js/vitre.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Examples">
+        <a href="../docs/index.html">Docs</a>
+        <a href="#native">Native</a>
+        <a href="#custom">Custom</a>
+        <a href="#dynamic">Dynamic</a>
+      </nav>
+
+      <h1>Vitre JS Kitchen Sink</h1>
+      <p>
+        Alert-only examples for Vitre JS. Styling comes from Vitre CSS as a development dependency.
+      </p>
+    </header>
+
+    <main>
+      <section id="native">
+        <h2>Native Alerts</h2>
+
+        <div role="status" data-v-dismiss>
+          Native status with <code>data-v-dismiss</code>.
+        </div>
+
+        <div role="note" data-v-timeout="10">
+          Native note with <code>data-v-timeout="10"</code>.
+        </div>
+
+        <div role="alert" data-v-dismiss data-v-timeout="12">
+          Native alert with dismiss and timeout behavior.
+        </div>
+      </section>
+
+      <section id="custom">
+        <h2>Custom Elements</h2>
+
+        <vitre-alert tone="status" dismiss>
+          Custom status with <code>dismiss</code>.
+        </vitre-alert>
+
+        <vitre-alert tone="note" timeout="10">
+          Custom note with <code>timeout="10"</code>.
+        </vitre-alert>
+
+        <vitre-alert dismiss timeout="12">
+          Custom alert defaults to <code>tone="alert"</code>.
+        </vitre-alert>
+      </section>
+
+      <section id="dynamic">
+        <h2>Dynamic Content</h2>
+        <p>
+          Dynamically inserted alerts can be enhanced with <code>Vitre.alerts(container)</code>.
+        </p>
+        <p>
+          <button type="button" id="add-alert">Add dynamic alert</button>
+        </p>
+        <div id="dynamic-alerts"></div>
+      </section>
+    </main>
+
+    <script>
+      const button = document.querySelector("#add-alert");
+      const container = document.querySelector("#dynamic-alerts");
+      let count = 1;
+
+      button.addEventListener("click", () => {
+        const alert = document.createElement("div");
+        alert.setAttribute("role", "status");
+        alert.setAttribute("data-v-dismiss", "");
+        alert.textContent = `Dynamic alert ${count++}`;
+        container.append(alert);
+        Vitre.alerts(container);
+      });
+    </script>
+  </body>
+</html>
