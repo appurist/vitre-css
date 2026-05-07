@@ -1,6 +1,6 @@
 {
   "name": "vitre-js",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Behavior helpers for semantic vitre-css (and others) components.",
   "license": "MIT",
   "type": "module",
@@ -15,7 +15,6 @@
     "vitre-css",
     "ui",
     "alerts",
-    "web-components",
     "semantic-html"
   ],
   "exports": {
@@ -44,6 +43,6 @@
     "release": "npm publish --access public"
   },
   "devDependencies": {
-    "vitre-css": "^1.2.0"
+    "vitre-css": "link:..\\vitre-css"
   }
 }

@@ -2,7 +2,7 @@
 
 Small behavior helpers for semantic Vitre UI components.
 
-Vitre JS provides optional interactivity for semantic HTML. It does not ship styling. Pair it with [Vitre CSS](https://www.npmjs.com/package/vitre-css) when you want the full Vitre UI presentation.
+Vitre JS provides optional interactivity for semantic HTML. It does not ship component skinning. Pair it with [Vitre CSS](https://www.npmjs.com/package/vitre-css) when you want the full Vitre UI presentation.
 
 **WARNING**: This is a new library (May 2026) under new development. It is published mostly for testing its own docs and examples from CDNs. You're free to try it, make suggestions, report problems at https://github.com/appurist/vitre-js/issues but it comes **as-is** and **without** any stated or implied warrantees. It is a **best effort** that I made for myself and I'm making it available for everyone to use for free.
 
@@ -22,40 +22,41 @@ npm install vitre-js
 Use the browser file:
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css/vitre.css">
 <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js/vitre.js"></script>
 ```
 
 Or import the ESM API:
 
 ```js
-import { Vitre, enhance, alerts } from "vitre-js";
+import { Vitre, apply } from "vitre-js";
 ```
 
 ## Alerts
 
-Native semantic markup:
+Semantic alert markup:
 
 ```html
-<div role="status" data-v-dismiss data-v-timeout="6">
+<div role="status" dismiss timeout="6">
   Saved successfully.
 </div>
 ```
 
-Custom element markup:
-
-```html
-<vitre-alert tone="status" dismiss timeout="6">
-  Saved successfully.
-</vitre-alert>
-```
-
-Supported tones are `alert`, `status`, and `note`. The custom element maps directly to the corresponding ARIA role.
+Supported roles are `alert`, `status`, and `note`. Add `dismiss` for a close button and `timeout` for automatic dismissal. Dismiss controls are generated as right-aligned SVG icon buttons with `data-variant="ghost"` when paired with Vitre CSS.
 
 ## API
 
 ```js
-Vitre.enhance();
-Vitre.alerts(document.querySelector("#dynamic-content"));
+Vitre.apply();
+Vitre.apply(document.querySelector("#dynamic-content"), ["alerts"]);
 ```
 
-`Vitre.enhance()` runs automatically on page load for browser script usage. Call it again after inserting dynamic content.
+`Vitre.apply()` runs automatically on page load for browser script usage. Call it again after inserting dynamic content.
+
+## Development
+
+This repo uses a local pnpm link to the sibling `../vitre-css` checkout for examples and docs:
+
+```sh
+pnpm install
+```
