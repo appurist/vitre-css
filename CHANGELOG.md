@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - 2026-05-07
+
+- Updated repository and documentation links for the move to the `vitre-ui` GitHub organization.
+
 ## 0.3.0 - 2026-05-07
 
 - Replaced role-based alert discovery with `[data-kind="alert"]`.

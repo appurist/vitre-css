@@ -1,10 +1,10 @@
 {
   "name": "vitre-js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Behavior helpers for semantic vitre-css (and others) components.",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://appurist.github.io/vitre-js/",
+  "homepage": "https://vitre-ui.github.io/vitre-js/",
   "main": "src/vitre.js",
   "module": "src/vitre.js",
   "browser": "vitre.js",
@@ -33,10 +33,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/appurist/vitre-js.git"
+    "url": "git+https://github.com/vitre-ui/vitre-js.git"
   },
   "bugs": {
-    "url": "https://github.com/appurist/vitre-js/issues"
+    "url": "https://github.com/vitre-ui/vitre-js/issues"
   },
   "scripts": {
     "check": "npm pack --dry-run",
