@@ -55,7 +55,7 @@ Vitre.apply(document.querySelector("#dynamic-content"), ["alerts"]);
 
 ## Development
 
-This repo uses a local pnpm link to the sibling `../vitre-css` checkout for examples and docs:
+This repo uses a local pnpm link to the sibling `../vitre-css` checkout during development. The GitHub Pages docs and examples live under `docs/` and use versioned CDN URLs so they render correctly as static Pages content:
 
 ```sh
 pnpm install
