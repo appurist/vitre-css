@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 - 2026-05-07
+## 0.2.1 - 2026-05-07
 
 - Added alert/status/note behavior for native role-based alerts using short `dismiss` and `timeout` attributes.
 - Removed the custom element alert approach before first release.
