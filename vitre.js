@@ -1,4 +1,4 @@
-const ALERT_SELECTOR = '[role="alert"], [role="status"], [role="note"]';
+const ALERT_SELECTOR = '[data-kind="alert"]';
 const CONTENT_SELECTOR = '[data-v-content]';
 const CLOSE_SELECTOR = '[data-v-close]';
 const ENHANCED = 'vEnhanced';
@@ -13,10 +13,10 @@ function ensureAlertStyles() {
   const style = document.createElement('style');
   style.id = STYLE_ID;
   style.textContent = [
-    ':where([role="alert"],[role="status"],[role="note"])[data-v-enhanced="true"]:has(>[data-v-close]){display:flex;align-items:center;gap:var(--vitre-space-3,0.75rem)}',
-    ':where([role="alert"],[role="status"],[role="note"])[data-v-enhanced="true"]>[data-v-content]{flex:1 1 auto}',
-    ':where([role="alert"],[role="status"],[role="note"])[data-v-enhanced="true"]>[data-v-close]{margin-inline-start:auto;flex:0 0 auto;inline-size:2rem;block-size:2rem;min-block-size:2rem;padding:0;color:currentColor}',
-    ':where([role="alert"],[role="status"],[role="note"])[data-v-enhanced="true"]>[data-v-close] svg{inline-size:1.125rem;block-size:1.125rem;overflow:visible}'
+    '[data-kind="alert"][data-v-enhanced="true"]:has(>[data-v-close]){display:flex;align-items:center;gap:var(--vitre-space-3,0.75rem)}',
+    '[data-kind="alert"][data-v-enhanced="true"]>[data-v-content]{flex:1 1 auto}',
+    '[data-kind="alert"][data-v-enhanced="true"]>[data-v-close]{margin-inline-start:auto;flex:0 0 auto;inline-size:2rem;block-size:2rem;min-block-size:2rem;padding:0;color:currentColor}',
+    '[data-kind="alert"][data-v-enhanced="true"]>[data-v-close] svg{inline-size:1.125rem;block-size:1.125rem;overflow:visible}'
   ].join('');
   document.head.append(style);
 }

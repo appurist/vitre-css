@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vitre JS Kitchen Sink</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@1.4.0/vitre.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@0.2.2/vitre.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@1.5.0/vitre.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@0.3.0/vitre.js"></script>
   </head>
   <body>
     <header>
@@ -26,33 +26,41 @@
         <h2>Alerts</h2>
 
         <div>
-          <h3>Roles</h3>
+          <h3>Colors</h3>
 
-          <div role="status">
-            Status role alert.
+          <div data-kind="alert" data-color="primary">
+            Primary alert.
           </div>
 
-          <div role="note">
-            Note role alert.
+          <div data-kind="alert" data-color="info">
+            Info alert.
           </div>
 
-          <div role="alert">
-            Alert role alert.
+          <div data-kind="alert" data-color="success" role="status">
+            Success alert with polite status semantics.
+          </div>
+
+          <div data-kind="alert" data-color="warning">
+            Warning alert.
+          </div>
+
+          <div data-kind="alert" data-color="error" role="alert">
+            Error alert with assertive alert semantics.
           </div>
         </div>
 
         <div>
           <h3>Behavior Attributes</h3>
 
-          <div role="status" dismiss>
+          <div data-kind="alert" data-color="success" role="status" dismiss>
             Status alert with <code>dismiss</code>.
           </div>
 
-          <div role="note" timeout="10">
-            Note alert with <code>timeout="10"</code>.
+          <div data-kind="alert" data-color="info" timeout="10">
+            Info alert with <code>timeout="10"</code>.
           </div>
 
-          <div role="alert" dismiss timeout="12">
+          <div data-kind="alert" data-color="error" role="alert" dismiss timeout="12">
             Alert with <code>dismiss</code> and <code>timeout="12"</code>.
           </div>
         </div>
@@ -77,6 +85,8 @@
 
       button.addEventListener("click", () => {
         const alert = document.createElement("div");
+        alert.setAttribute("data-kind", "alert");
+        alert.setAttribute("data-color", "success");
         alert.setAttribute("role", "status");
         alert.setAttribute("dismiss", "");
         alert.textContent = `Dynamic alert ${count++}`;

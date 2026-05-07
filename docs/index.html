@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vitre JS Documentation</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@1.4.0/vitre.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@0.2.2/vitre.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@1.5.0/vitre.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@0.3.0/vitre.js"></script>
   </head>
   <body>
     <header>
@@ -18,8 +18,23 @@
       <h1>Vitre JS</h1>
       <p>Small behavior helpers for semantic Vitre UI components.</p>
       <p>
-        Vitre JS has no component skinning of its own. These docs pair it with Vitre CSS to show
-        the combined Vitre UI experience.
+        Vitre JS provides optional interactivity for semantic HTML. It does not ship component
+        skinning. Pair it with <a href="https://www.npmjs.com/package/vitre-css">Vitre CSS</a>
+        when you want the full Vitre UI presentation.
+      </p>
+      <p data-kind="alert" data-color="warning">
+        <strong>WARNING</strong>: This is a new library (May 2026) under new development. It is
+        published mostly for testing its own docs and examples from CDNs. You're free to try it,
+        make suggestions, report problems at
+        <a href="https://github.com/appurist/vitre-js/issues">https://github.com/appurist/vitre-js/issues</a>
+        but it comes <em>as-is</em> and <em>without</em> any stated or implied
+        warrantees. It is a <em>best effort</em> that I made for myself and I'm making it
+        available for everyone to use for free.
+      </p>
+      <p data-kind="alert" data-color="info">
+        <strong>Current status:</strong> This package is a test for additional components and
+        features. It currently only provides dynamic support for <strong>alerts</strong>.
+        Additional components and features will follow once the patterns are established.
       </p>
       <ul>
         <li>npmjs.org: <a href="https://www.npmjs.com/package/vitre-js">https://www.npmjs.com/package/vitre-js</a></li>
@@ -43,15 +58,17 @@
       <section id="alerts">
         <h2>Alerts</h2>
         <p>
-          Alerts use semantic roles for styling and short attributes for behavior.
+          Alerts use <code>data-kind="alert"</code> for behavior, named
+          <code>data-color</code> values for styling, and ARIA roles only when
+          live-region behavior is intended.
         </p>
 
         <h3>Markup</h3>
-        <div role="status" dismiss timeout="8">
+        <div data-kind="alert" data-color="success" role="status" dismiss timeout="8">
           Saved successfully. This status can be dismissed or time out.
         </div>
 
-        <pre><code>&lt;div role="status" dismiss timeout="8"&gt;
+        <pre><code>&lt;div data-kind="alert" data-color="success" role="status" dismiss timeout="8"&gt;
   Saved successfully.
 &lt;/div&gt;</code></pre>
 

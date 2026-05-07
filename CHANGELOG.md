@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.3.0 - 2026-05-07
+
+- Replaced role-based alert discovery with `[data-kind="alert"]`.
+
 ## 0.2.2 - 2026-05-07
 
-- Added alert/status/note behavior for native role-based alerts using short `dismiss` and `timeout` attributes.
+- Added alert behavior for `[data-kind="alert"]` using short `dismiss` and `timeout` attributes.
 - Removed the custom element alert approach before first release.
 - Replaced separate public behavior functions with `Vitre.apply(root, components)`.
 - Generated right-aligned alert dismiss controls with SVG icons and `data-variant="ghost"`.
