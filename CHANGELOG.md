@@ -1,8 +1,13 @@
 # Changelog
 
+## 0.3.4 - 2026-05-08
+
+- Removed stale package-local Pages documentation references after moving public docs and examples to the central Vitre Docs site.
+
 ## 0.3.3 - 2026-05-07
 
 - Updated CDN examples and docs pages to use unversioned unpkg URLs for faster latest-version resolution.
+- Pointed package documentation links at the central Vitre Docs site.
 
 ## 0.3.2 - 2026-05-07
 

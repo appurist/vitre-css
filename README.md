@@ -1,5 +1,7 @@
 # Vitre JS
 
+![Vitre UI](https://vitre-ui.com/images/vitre-ui-dark.webp)
+
 Small behavior helpers for semantic Vitre UI components.
 
 Vitre JS provides optional interactivity for semantic HTML. It does not ship component skinning. Pair it with [Vitre CSS](https://www.npmjs.com/package/vitre-css) when you want the full Vitre UI presentation.
@@ -9,7 +11,7 @@ Vitre JS provides optional interactivity for semantic HTML. It does not ship com
 ## Links
 
 - GitHub repo: https://github.com/vitre-ui/vitre-js
-- GitHub docs: https://vitre-ui.github.io/vitre-js/
+- Documentation: https://docs.vitre-ui.com/
 - npmjs.org: https://www.npmjs.com/package/vitre-js
 - Vitre CSS: https://www.npmjs.com/package/vitre-css
 
@@ -57,7 +59,7 @@ Vitre.apply(document.querySelector("#dynamic-content"), ["alerts"]);
 
 ## Development
 
-This repo uses a local pnpm link to the sibling `../vitre-css` checkout during development. The GitHub Pages docs and examples live under `docs/` and use CDN URLs so they render correctly as static Pages content:
+This repo uses a local pnpm link to the sibling `../vitre-css` checkout during development. Public documentation and examples live in the central Vitre Docs site:
 
 ```sh
 pnpm install

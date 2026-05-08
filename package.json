@@ -1,10 +1,10 @@
 {
   "name": "vitre-js",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Behavior helpers for semantic vitre-css (and others) components.",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://vitre-ui.github.io/vitre-js/",
+  "homepage": "https://docs.vitre-ui.com/",
   "main": "src/vitre.js",
   "module": "src/vitre.js",
   "browser": "vitre.js",
