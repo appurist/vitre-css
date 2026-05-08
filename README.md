@@ -22,9 +22,11 @@ npm install vitre-js
 Use the browser file:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@latest/vitre.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@latest/vitre.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/vitre-css/vitre.css">
+<script type="module" src="https://unpkg.com/vitre-js/vitre.js"></script>
 ```
+
+For CDN usage, prefer the unversioned unpkg URLs. They resolve to the latest published npm versions quickly while keeping copy/paste usage simple.
 
 Or import the ESM API:
 
@@ -55,7 +57,7 @@ Vitre.apply(document.querySelector("#dynamic-content"), ["alerts"]);
 
 ## Development
 
-This repo uses a local pnpm link to the sibling `../vitre-css` checkout during development. The GitHub Pages docs and examples live under `docs/` and use versioned CDN URLs so they render correctly as static Pages content:
+This repo uses a local pnpm link to the sibling `../vitre-css` checkout during development. The GitHub Pages docs and examples live under `docs/` and use CDN URLs so they render correctly as static Pages content:
 
 ```sh
 pnpm install

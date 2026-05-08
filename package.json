@@ -1,6 +1,6 @@
 {
   "name": "vitre-js",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Behavior helpers for semantic vitre-css (and others) components.",
   "license": "MIT",
   "type": "module",

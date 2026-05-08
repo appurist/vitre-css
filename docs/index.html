@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vitre JS Documentation</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@latest/vitre.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@latest/vitre.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/vitre-css/vitre.css">
+    <script type="module" src="https://unpkg.com/vitre-js/vitre.js"></script>
   </head>
   <body>
     <header>
@@ -49,8 +49,13 @@
         <h2>Install</h2>
         <pre><code>npm install vitre-js</code></pre>
 
-        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@latest/vitre.css"&gt;
-&lt;script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@latest/vitre.js"&gt;&lt;/script&gt;</code></pre>
+        <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/vitre-css/vitre.css"&gt;
+&lt;script type="module" src="https://unpkg.com/vitre-js/vitre.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>
+          For CDN usage, prefer the unversioned unpkg URLs. They resolve to the latest published
+          npm versions quickly while keeping copy/paste usage simple.
+        </p>
 
         <pre><code>import { Vitre, apply } from "vitre-js";</code></pre>
       </section>

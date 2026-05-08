@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3 - 2026-05-07
+
+- Updated CDN examples and docs pages to use unversioned unpkg URLs for faster latest-version resolution.
+
 ## 0.3.2 - 2026-05-07
 
 - Updated CDN examples and docs pages to use explicit `@latest` Vitre package URLs.
