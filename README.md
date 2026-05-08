@@ -48,11 +48,21 @@ Semantic alert markup:
 
 Alerts are selected with `data-kind="alert"`. Use named `data-color` values such as `primary`, `info`, `success`, `warning`, and `error` for Vitre CSS styling. Add `role="alert"` or `role="status"` only when live-region behavior is intended. Add `dismiss` for a close button and `timeout` for automatic dismissal. Dismiss controls are generated as right-aligned SVG icon buttons with `data-variant="ghost"` when paired with Vitre CSS.
 
+## Theme Toggle
+
+Use a span with `data-kind="theme-toggle"` to render a light/dark toggle button:
+
+```html
+<span data-kind="theme-toggle"></span>
+```
+
+The generated button toggles `data-theme="light"` and `data-theme="dark"` on the root `<html>` element and stores the selected theme in local storage.
+
 ## API
 
 ```js
 Vitre.apply();
-Vitre.apply(document.querySelector("#dynamic-content"), ["alerts"]);
+Vitre.apply(document.querySelector("#dynamic-content"), ["alerts", "theme-toggle"]);
 ```
 
 `Vitre.apply()` runs automatically on page load for browser script usage. Call it again after inserting dynamic content.

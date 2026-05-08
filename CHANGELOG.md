@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.5 - 2026-05-08
+
+- Added a version and license banner to the package entry files.
+- Added a `data-kind="theme-toggle"` component that renders a light/dark toggle button and persists the selected theme.
+
 ## 0.3.4 - 2026-05-08
 
 - Removed stale package-local Pages documentation references after moving public docs and examples to the central Vitre Docs site.
