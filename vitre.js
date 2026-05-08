@@ -13,7 +13,9 @@ function ensureAlertStyles() {
   const style = document.createElement('style');
   style.id = STYLE_ID;
   style.textContent = [
-    '[data-kind="alert"][data-v-enhanced="true"]:has(>[data-v-close]){display:flex;align-items:center;gap:var(--vitre-space-3,0.75rem)}',
+    '[data-kind="alert"][data-v-enhancing="true"]{visibility:hidden}',
+    '[data-kind="alert"][data-v-enhancing="true"],[data-kind="alert"][data-v-enhanced="true"]:has(>[data-v-close]){display:flex;align-items:center;gap:var(--vitre-space-3,0.75rem)}',
+    '[data-kind="alert"][data-v-enhancing="true"]::after{content:"";display:block;margin-inline-start:auto;flex:0 0 auto;inline-size:2rem;block-size:2rem}',
     '[data-kind="alert"][data-v-enhanced="true"]>[data-v-content]{flex:1 1 auto}',
     '[data-kind="alert"][data-v-enhanced="true"]>[data-v-close]{margin-inline-start:auto;flex:0 0 auto;inline-size:2rem;block-size:2rem;min-block-size:2rem;padding:0;color:currentColor}',
     '[data-kind="alert"][data-v-enhanced="true"]>[data-v-close] svg{inline-size:1.125rem;block-size:1.125rem;overflow:visible}'
@@ -92,8 +94,10 @@ function enhanceAlert(element) {
   }
 
   if (isDismissible(element)) {
+    element.dataset.vEnhancing = 'true';
     const close = ensureCloseButton(element);
     close.addEventListener('click', () => dismiss(element));
+    delete element.dataset.vEnhancing;
   }
 
   const seconds = getTimeout(element);

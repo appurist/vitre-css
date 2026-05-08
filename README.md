@@ -22,8 +22,8 @@ npm install vitre-js
 Use the browser file:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css/vitre.css">
-<script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js/vitre.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vitre-css@latest/vitre.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/vitre-js@latest/vitre.js"></script>
 ```
 
 Or import the ESM API:

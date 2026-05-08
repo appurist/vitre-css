@@ -1,8 +1,13 @@
 # Changelog
 
+## 0.3.2 - 2026-05-07
+
+- Updated CDN examples and docs pages to use explicit `@latest` Vitre package URLs.
+
 ## 0.3.1 - 2026-05-07
 
 - Updated repository and documentation links for the move to the `vitre-ui` GitHub organization.
+- Hid dismissible alerts during close-button injection so enhancement is presented after the final alert structure is ready.
 
 ## 0.3.0 - 2026-05-07
 
