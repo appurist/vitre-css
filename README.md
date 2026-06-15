@@ -58,11 +58,32 @@ Use a span with `data-kind="theme-toggle"` to render a light/dark toggle button:
 
 The generated button toggles `data-theme="light"` and `data-theme="dark"` on the root `<html>` element and stores the selected theme in local storage.
 
+## Navigation
+
+Use `data-kind="nav"` on a semantic navigation region to add class-free SPA
+navigation behavior:
+
+```html
+<nav data-kind="nav" aria-label="Primary navigation">
+  <a href="/">Home</a>
+  <a href="/videos">Videos</a>
+</nav>
+```
+
+Vitre intercepts same-origin primary clicks, updates browser history, dispatches
+a `popstate` event for routers that listen to history changes, and maintains
+`aria-current="page"` on the current link. External links, downloads, modified
+clicks, and links with `target` other than `_self` use normal browser behavior.
+
+Each intercepted link emits a cancelable `vitre:navigate` event from the clicked
+anchor. Applications can call `event.preventDefault()` to hand navigation to a
+framework router while still using semantic anchors.
+
 ## API
 
 ```js
 Vitre.apply();
-Vitre.apply(document.querySelector("#dynamic-content"), ["alerts", "theme-toggle"]);
+Vitre.apply(document.querySelector("#dynamic-content"), ["alerts", "nav", "theme-toggle"]);
 ```
 
 `Vitre.apply()` runs automatically on page load for browser script usage. Call it again after inserting dynamic content.

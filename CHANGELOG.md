@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 - 2026-06-15
+
+- Added `data-kind="nav"` behavior for class-free same-origin SPA navigation.
+- Navigation helpers now dispatch cancelable `vitre:navigate` events, update history, and maintain `aria-current="page"` on current links.
+
 ## 0.3.5 - 2026-05-08
 
 - Added a version and license banner to the package entry files.

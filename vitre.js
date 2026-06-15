@@ -1,17 +1,18 @@
 /*!
- * Vitre JS v0.3.5
+ * Vitre JS v0.4.0
  * Styleless behavior helpers for semantic Vitre UI components.
  * MIT License
  */
 
 const ALERT_SELECTOR = '[data-kind="alert"]';
+const NAV_SELECTOR = 'nav[data-kind="nav"],[data-kind="nav"] nav,[data-kind="nav"][role="navigation"]';
 const THEME_TOGGLE_SELECTOR = '[data-kind="theme-toggle"]';
 const CONTENT_SELECTOR = '[data-v-content]';
 const CLOSE_SELECTOR = '[data-v-close]';
 const THEME_BUTTON_SELECTOR = '[data-v-theme-toggle]';
 const ENHANCED = 'vEnhanced';
 const STYLE_ID = 'vitre-js-alert-styles';
-const COMPONENTS = ['alerts', 'theme-toggle'];
+const COMPONENTS = ['alerts', 'nav', 'theme-toggle'];
 const THEME_STORAGE_KEY = 'vitre-theme';
 const THEME_ICON = '<svg viewBox="0 0 512 512" fill="currentColor" color="currentColor" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="overflow: visible;"><path fill="currentColor" d="M448 256c0-106-86-192-192-192v384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"></path></svg>';
 
@@ -222,12 +223,155 @@ function applyThemeToggles(root = document) {
   return elements.map(enhanceThemeToggle);
 }
 
+function getLinkUrl(anchor) {
+  try {
+    return new URL(anchor.getAttribute('href') || '', window.location.href);
+  } catch {
+    return null;
+  }
+}
+
+function isPlainPrimaryClick(event) {
+  return event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+}
+
+function isRoutableAnchor(anchor) {
+  const target = anchor.getAttribute('target');
+  const download = anchor.hasAttribute('download');
+  const rel = anchor.getAttribute('rel') || '';
+  const url = getLinkUrl(anchor);
+
+  return Boolean(
+    url &&
+    url.origin === window.location.origin &&
+    !download &&
+    (!target || target === '_self') &&
+    !rel.split(/\s+/).includes('external')
+  );
+}
+
+function getNavigationPath(url) {
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+function isCurrentUrl(url) {
+  return (
+    url.origin === window.location.origin &&
+    url.pathname === window.location.pathname &&
+    url.search === window.location.search &&
+    url.hash === window.location.hash
+  );
+}
+
+function setCurrentLinks(nav) {
+  for (const anchor of nav.querySelectorAll('a[href]')) {
+    const url = getLinkUrl(anchor);
+    const current = url && url.origin === window.location.origin && url.pathname === window.location.pathname && url.search === window.location.search;
+
+    if (current && (!url.hash || url.hash === window.location.hash)) {
+      anchor.setAttribute('aria-current', 'page');
+    } else {
+      anchor.removeAttribute('aria-current');
+    }
+  }
+}
+
+function scrollToHash(hash) {
+  if (!hash) {
+    window.scrollTo?.({ top: 0 });
+    return;
+  }
+
+  const id = decodeURIComponent(hash.slice(1));
+  const target = document.getElementById(id) || document.querySelector(`[name="${CSS.escape(id)}"]`);
+  target?.scrollIntoView();
+}
+
+function navigate(url, anchor, originalEvent) {
+  const detail = {
+    anchor,
+    event: originalEvent,
+    href: anchor.getAttribute('href') || '',
+    path: getNavigationPath(url),
+    url
+  };
+
+  const event = new CustomEvent('vitre:navigate', {
+    bubbles: true,
+    cancelable: true,
+    detail
+  });
+
+  anchor.dispatchEvent(event);
+
+  if (event.defaultPrevented) {
+    return;
+  }
+
+  if (!isCurrentUrl(url)) {
+    window.history.pushState({}, '', url);
+    window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }));
+  }
+
+  scrollToHash(url.hash);
+  document.querySelectorAll(NAV_SELECTOR).forEach(setCurrentLinks);
+}
+
+function enhanceNav(nav) {
+  if (nav.dataset[ENHANCED] === 'true') {
+    return nav;
+  }
+
+  nav.addEventListener('click', (event) => {
+    if (!isPlainPrimaryClick(event)) {
+      return;
+    }
+
+    const anchor = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!anchor || !nav.contains(anchor) || !isRoutableAnchor(anchor)) {
+      return;
+    }
+
+    const url = getLinkUrl(anchor);
+    if (!url) {
+      return;
+    }
+
+    event.preventDefault();
+    navigate(url, anchor, event);
+  });
+
+  window.addEventListener('popstate', () => setCurrentLinks(nav));
+  setCurrentLinks(nav);
+  nav.dataset[ENHANCED] = 'true';
+  return nav;
+}
+
+function applyNavs(root = document) {
+  const scope = root instanceof Element || root instanceof Document || root instanceof DocumentFragment
+    ? root
+    : document;
+
+  const elements = [];
+
+  if (scope instanceof Element && scope.matches(NAV_SELECTOR)) {
+    elements.push(scope);
+  }
+
+  elements.push(...scope.querySelectorAll(NAV_SELECTOR));
+  return elements.map(enhanceNav);
+}
+
 export function apply(root = document, components = COMPONENTS) {
   const selected = Array.isArray(components) ? components : [components];
   const results = {};
 
   if (selected.includes('alerts')) {
     results.alerts = applyAlerts(root);
+  }
+
+  if (selected.includes('nav') || selected.includes('navigation')) {
+    results.nav = applyNavs(root);
   }
 
   if (selected.includes('theme-toggle') || selected.includes('theme')) {
