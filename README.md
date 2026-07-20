@@ -79,11 +79,21 @@ Each intercepted link emits a cancelable `vitre:navigate` event from the clicked
 anchor. Applications can call `event.preventDefault()` to hand navigation to a
 framework router while still using semantic anchors.
 
+## Splitters
+
+Use `data-kind="splitter"` with `role="separator"` for resizable pane handles:
+
+```html
+<div data-kind="splitter" role="separator" aria-orientation="vertical"></div>
+```
+
+Vitre JS ensures the handle is focusable and has a default `aria-orientation` when one is not provided. Applications still own the pane sizing behavior.
+
 ## API
 
 ```js
 Vitre.apply();
-Vitre.apply(document.querySelector("#dynamic-content"), ["alerts", "nav", "theme-toggle"]);
+Vitre.apply(document.querySelector("#dynamic-content"), ["alerts", "theme-toggle"]);
 ```
 
 `Vitre.apply()` runs automatically on page load for browser script usage. Call it again after inserting dynamic content.

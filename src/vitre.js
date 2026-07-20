@@ -7,11 +7,14 @@
 const ALERT_SELECTOR = '[data-kind="alert"]';
 const NAV_SELECTOR = 'nav[data-kind="nav"],[data-kind="nav"] nav,[data-kind="nav"][role="navigation"]';
 const THEME_TOGGLE_SELECTOR = '[data-kind="theme-toggle"]';
+const SPLITTER_SELECTOR = '[data-kind="splitter"][role="separator"]';
 const CONTENT_SELECTOR = '[data-v-content]';
 const CLOSE_SELECTOR = '[data-v-close]';
 const THEME_BUTTON_SELECTOR = '[data-v-theme-toggle]';
 const ENHANCED = 'vEnhanced';
 const STYLE_ID = 'vitre-js-alert-styles';
+const COMPONENTS = ['alerts', 'nav', 'splitters', 'theme-toggle'];
+const COMPONENTS = ['alerts', 'theme-toggle', 'splitters'];
 const COMPONENTS = ['alerts', 'nav', 'theme-toggle'];
 const THEME_STORAGE_KEY = 'vitre-theme';
 const THEME_ICON = '<svg viewBox="0 0 512 512" fill="currentColor" color="currentColor" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="overflow: visible;"><path fill="currentColor" d="M448 256c0-106-86-192-192-192v384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"></path></svg>';
@@ -223,6 +226,38 @@ function applyThemeToggles(root = document) {
   return elements.map(enhanceThemeToggle);
 }
 
+function enhanceSplitter(element) {
+  if (element.dataset[ENHANCED] === 'true') {
+    return element;
+  }
+
+  if (!element.hasAttribute('tabindex')) {
+    element.tabIndex = 0;
+  }
+
+  if (!element.hasAttribute('aria-orientation')) {
+    element.setAttribute('aria-orientation', 'vertical');
+  }
+
+  element.dataset[ENHANCED] = 'true';
+  return element;
+}
+
+function applySplitters(root = document) {
+  const scope = root instanceof Element || root instanceof Document || root instanceof DocumentFragment
+    ? root
+    : document;
+
+  const elements = [];
+
+  if (scope instanceof Element && scope.matches(SPLITTER_SELECTOR)) {
+    elements.push(scope);
+  }
+
+  elements.push(...scope.querySelectorAll(SPLITTER_SELECTOR));
+  return elements.map(enhanceSplitter);
+}
+
 function getLinkUrl(anchor) {
   try {
     return new URL(anchor.getAttribute('href') || '', window.location.href);
@@ -376,6 +411,10 @@ export function apply(root = document, components = COMPONENTS) {
 
   if (selected.includes('theme-toggle') || selected.includes('theme')) {
     results.themeToggle = applyThemeToggles(root);
+  }
+
+  if (selected.includes('splitters') || selected.includes('splitter')) {
+    results.splitters = applySplitters(root);
   }
 
   return results;
