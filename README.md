@@ -191,7 +191,7 @@ Prefer variables when they exist. If you find yourself repeatedly overriding the
 - Code: `code`, `pre`, `kbd`, and `samp`
 - Forms: labels, buttons, inputs, textareas, selects, fieldsets, checkboxes, radios, ranges, and color inputs
 - Data and disclosure: tables, `details`, `summary`, `dialog`, `progress`, and `meter`
-- Data patterns: `[data-kind="alert"]`, `[data-color="warning"]`, `[data-variant="outline"]`, `[role="dialog"]`, and grouped form controls
+- Data patterns: `[data-kind="alert"]`, `[data-kind="tabs"]`, `[data-kind="splitter"]`, `[data-color="warning"]`, `[data-variant="outline"]`, `[role="dialog"]`, and grouped form controls
 - Media: images, videos, SVGs, canvas, and iframes
 
 ## Optional JavaScript
@@ -250,6 +250,33 @@ Use `data-kind="splitter"` with `role="separator"` for resizable pane handles:
 ```
 
 Vitre ensures the handle is focusable and has a default `aria-orientation` when one is not provided. Applications still own the pane sizing behavior.
+
+### Tabs
+
+Use `data-kind="tabs"` around a `role="tablist"` and its `role="tabpanel"` sections:
+
+```html
+<div data-kind="tabs">
+  <div role="tablist" aria-label="Account settings">
+    <button role="tab">Profile</button>
+    <button role="tab">Notifications</button>
+  </div>
+
+  <section role="tabpanel">
+    <h3>Profile</h3>
+    <p>Profile settings.</p>
+  </section>
+
+  <section role="tabpanel">
+    <h3>Notifications</h3>
+    <p>Notification settings.</p>
+  </section>
+</div>
+```
+
+Tabs are paired with panels in document order, or explicitly with `aria-controls` when the order differs. Vitre generates the missing `id`, `aria-controls`, `aria-labelledby`, and `aria-selected` attributes, manages a roving `tabindex`, and supports arrow keys, `Home`, and `End`. Set `aria-selected="true"` on a tab in your markup to choose the initial panel; otherwise the first is selected. Add `aria-orientation="vertical"` to the tablist for a vertical strip. Changing tabs emits a `vitre:tabchange` event.
+
+Without JavaScript the tab strip is hidden and every panel renders stacked and readable, so give each panel a heading. This keeps the content reachable rather than leaving dead buttons behind.
 
 ### API
 

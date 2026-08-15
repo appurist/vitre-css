@@ -8,12 +8,16 @@ const ALERT_SELECTOR = '[data-kind="alert"]';
 const NAV_SELECTOR = 'nav[data-kind="nav"],[data-kind="nav"] nav,[data-kind="nav"][role="navigation"]';
 const THEME_TOGGLE_SELECTOR = '[data-kind="theme-toggle"]';
 const SPLITTER_SELECTOR = '[data-kind="splitter"][role="separator"]';
+const TABS_SELECTOR = '[data-kind="tabs"]';
+const TABLIST_SELECTOR = '[role="tablist"]';
+const TAB_SELECTOR = '[role="tab"]';
+const TABPANEL_SELECTOR = '[role="tabpanel"]';
 const CONTENT_SELECTOR = '[data-v-content]';
 const CLOSE_SELECTOR = '[data-v-close]';
 const THEME_BUTTON_SELECTOR = '[data-v-theme-toggle]';
 const ENHANCED = 'vEnhanced';
 const STYLE_ID = 'vitre-js-alert-styles';
-const COMPONENTS = ['alerts', 'nav', 'splitters', 'theme-toggle'];
+const COMPONENTS = ['alerts', 'nav', 'splitters', 'tabs', 'theme-toggle'];
 const THEME_STORAGE_KEY = 'vitre-theme';
 const THEME_ICON = '<svg viewBox="0 0 512 512" fill="currentColor" color="currentColor" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="overflow: visible;"><path fill="currentColor" d="M448 256c0-106-86-192-192-192v384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"></path></svg>';
 
@@ -256,6 +260,205 @@ function applySplitters(root = document) {
   return elements.map(enhanceSplitter);
 }
 
+let idSequence = 0;
+
+function uniqueId(prefix) {
+  let id = '';
+
+  do {
+    idSequence += 1;
+    id = `${prefix}-${idSequence}`;
+  } while (document.getElementById(id));
+
+  return id;
+}
+
+function ownsTabsElement(container, element) {
+  return element.closest(TABS_SELECTOR) === container;
+}
+
+function getTabList(container) {
+  return [...container.querySelectorAll(TABLIST_SELECTOR)]
+    .find((tablist) => ownsTabsElement(container, tablist)) || null;
+}
+
+function getTabs(container, tablist) {
+  return [...tablist.querySelectorAll(TAB_SELECTOR)]
+    .filter((tab) => ownsTabsElement(container, tab));
+}
+
+function getTabPanels(container) {
+  return [...container.querySelectorAll(TABPANEL_SELECTOR)]
+    .filter((panel) => ownsTabsElement(container, panel));
+}
+
+function resolveTabPanel(tab, panels, index) {
+  const controls = tab.getAttribute('aria-controls');
+
+  if (controls) {
+    const target = document.getElementById(controls);
+    if (target && panels.includes(target)) {
+      return target;
+    }
+  }
+
+  return panels[index] || null;
+}
+
+function selectTab(container, pairs, index, { focus = false, emit = true } = {}) {
+  const selected = pairs[index];
+  if (!selected) {
+    return null;
+  }
+
+  for (const pair of pairs) {
+    const current = pair === selected;
+    pair.tab.setAttribute('aria-selected', current ? 'true' : 'false');
+    pair.tab.tabIndex = current ? 0 : -1;
+    pair.panel.hidden = !current;
+  }
+
+  if (focus) {
+    selected.tab.focus();
+  }
+
+  if (emit) {
+    container.dispatchEvent(new CustomEvent('vitre:tabchange', {
+      bubbles: true,
+      detail: {
+        source: container,
+        tab: selected.tab,
+        panel: selected.panel,
+        index
+      }
+    }));
+  }
+
+  return selected;
+}
+
+function getTabStep(tablist, key) {
+  const vertical = tablist.getAttribute('aria-orientation') === 'vertical';
+  const previous = vertical ? 'ArrowUp' : 'ArrowLeft';
+  const next = vertical ? 'ArrowDown' : 'ArrowRight';
+
+  if (key === previous) {
+    return -1;
+  }
+
+  if (key === next) {
+    return 1;
+  }
+
+  return 0;
+}
+
+function enhanceTabs(container) {
+  if (container.dataset[ENHANCED] === 'true') {
+    return container;
+  }
+
+  const tablist = getTabList(container);
+  if (!tablist) {
+    return container;
+  }
+
+  const panels = getTabPanels(container);
+  const pairs = [];
+
+  getTabs(container, tablist).forEach((tab, index) => {
+    const panel = resolveTabPanel(tab, panels, index);
+    if (!panel) {
+      return;
+    }
+
+    if (tab.tagName === 'BUTTON' && !tab.hasAttribute('type')) {
+      tab.type = 'button';
+    }
+
+    if (!tab.id) {
+      tab.id = uniqueId('vitre-tab');
+    }
+
+    if (!panel.id) {
+      panel.id = uniqueId('vitre-tabpanel');
+    }
+
+    tab.setAttribute('aria-controls', panel.id);
+
+    if (!panel.hasAttribute('aria-labelledby')) {
+      panel.setAttribute('aria-labelledby', tab.id);
+    }
+
+    if (!panel.hasAttribute('tabindex')) {
+      panel.tabIndex = 0;
+    }
+
+    pairs.push({ tab, panel });
+  });
+
+  if (!pairs.length) {
+    return container;
+  }
+
+  tablist.addEventListener('click', (event) => {
+    const tab = event.target instanceof Element ? event.target.closest(TAB_SELECTOR) : null;
+    const index = pairs.findIndex((pair) => pair.tab === tab);
+
+    if (index >= 0) {
+      selectTab(container, pairs, index);
+    }
+  });
+
+  tablist.addEventListener('keydown', (event) => {
+    const tab = event.target instanceof Element ? event.target.closest(TAB_SELECTOR) : null;
+    const current = pairs.findIndex((pair) => pair.tab === tab);
+
+    if (current < 0) {
+      return;
+    }
+
+    let index = current;
+
+    if (event.key === 'Home') {
+      index = 0;
+    } else if (event.key === 'End') {
+      index = pairs.length - 1;
+    } else {
+      const step = getTabStep(tablist, event.key);
+      if (!step) {
+        return;
+      }
+
+      index = (current + step + pairs.length) % pairs.length;
+    }
+
+    event.preventDefault();
+    selectTab(container, pairs, index, { focus: true });
+  });
+
+  const preselected = pairs.findIndex((pair) => pair.tab.getAttribute('aria-selected') === 'true');
+  selectTab(container, pairs, preselected >= 0 ? preselected : 0, { emit: false });
+
+  container.dataset[ENHANCED] = 'true';
+  return container;
+}
+
+function applyTabs(root = document) {
+  const scope = root instanceof Element || root instanceof Document || root instanceof DocumentFragment
+    ? root
+    : document;
+
+  const elements = [];
+
+  if (scope instanceof Element && scope.matches(TABS_SELECTOR)) {
+    elements.push(scope);
+  }
+
+  elements.push(...scope.querySelectorAll(TABS_SELECTOR));
+  return elements.map(enhanceTabs);
+}
+
 function getLinkUrl(anchor) {
   try {
     return new URL(anchor.getAttribute('href') || '', window.location.href);
@@ -413,6 +616,10 @@ export function apply(root = document, components = COMPONENTS) {
 
   if (selected.includes('splitters') || selected.includes('splitter')) {
     results.splitters = applySplitters(root);
+  }
+
+  if (selected.includes('tabs') || selected.includes('tab')) {
+    results.tabs = applyTabs(root);
   }
 
   return results;

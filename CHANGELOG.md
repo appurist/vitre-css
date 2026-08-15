@@ -5,6 +5,7 @@
 - Merged the `vitre-js` project into this package. Vitre is now a single project shipping both the stylesheet and optional behavior helpers, released and versioned together.
 - Added `vitre.js` as an optional, opt-in behavior file alongside `vitre.css`. It provides `data-kind` components for alerts, theme toggle, navigation, and splitters. The stylesheet remains fully functional without it.
 - Added a `data-kind="splitter"` component for resizable pane handles.
+- Added a `data-kind="tabs"` component built on the ARIA tablist pattern, with generated `aria-*` wiring, roving tabindex, arrow/`Home`/`End` keyboard support, vertical orientation, and a `vitre:tabchange` event. Without JavaScript the tab strip is hidden and all panels render stacked, so content stays reachable.
 - Added `REFERENCE.md`, a complete CSS custom property reference, and included it in the published package.
 - Fixed a duplicate `COMPONENTS` declaration that made the ESM entry point of `vitre-js@0.4.0` fail to parse for npm and bundler consumers.
 - Collapsed the previously hand-synced `src/vitre.js` and `vitre.js` duplicates into a single root `vitre.js`.

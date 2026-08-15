@@ -232,9 +232,7 @@ These swap automatically with the system color scheme or an explicit `data-theme
 
 ---
 
-## Splitter (undocumented component)
-
-> These variables exist in `vitre.css` for a `[data-kind="splitter"]` component but are not yet covered in the docs site.
+## Splitter
 
 | Variable | Default | Description |
 |---|---|---|
@@ -242,3 +240,22 @@ These swap automatically with the system color scheme or an explicit `data-theme
 | `--vitre-splitter-bg` | `var(--vitre-border)` | Default splitter background |
 | `--vitre-splitter-active-bg` | `var(--vitre-primary)` | Splitter background when active/focused |
 
+---
+
+## Tabs
+
+| Variable | Default | Description |
+|---|---|---|
+| `--vitre-tab-color` | `var(--vitre-subtle)` | Resting tab label color |
+| `--vitre-tab-hover-color` | `var(--vitre-text)` | Tab label color on hover |
+| `--vitre-tab-hover-bg` | `var(--vitre-surface-soft)` | Tab background on hover |
+| `--vitre-tab-active-color` | `var(--vitre-primary)` | Selected tab label and indicator color |
+| `--vitre-tab-indicator-width` | `0.14rem` | Thickness of the selected-tab indicator |
+| `--vitre-tab-font-size` | `var(--vitre-button-font-size)` | Tab label font size |
+| `--vitre-tab-font-weight` | `500` | Tab label font weight |
+| `--vitre-tab-gap` | `0.15rem` | Gap between adjacent tabs |
+| `--vitre-tab-padding-block` | `0.6rem` | Vertical padding inside a tab |
+| `--vitre-tab-padding-inline` | `0.9rem` | Horizontal padding inside a tab |
+| `--vitre-tablist-border` | `var(--vitre-border)` | Rule along the tab strip |
+| `--vitre-tablist-border-width` | `1px` | Thickness of the tab strip rule |
+| `--vitre-tab-panel-padding-block` | `var(--vitre-space-4)` | Space above the active panel |
