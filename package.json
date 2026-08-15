@@ -1,8 +1,9 @@
 {
   "name": "vitre-css",
-  "version": "1.5.10",
-  "description": "Class-free and style-free web with a high-end glass finish for semantic HTML.",
+  "version": "1.6.0",
+  "description": "Class-free and style-free web with a high-end glass finish for semantic HTML, plus optional behavior helpers.",
   "license": "MIT",
+  "type": "module",
   "homepage": "https://docs.vitre-ui.com/",
   "repository": {
     "type": "git",
@@ -20,21 +21,34 @@
     "semantic-html",
     "stylesheet",
     "theme",
-    "dark-mode"
+    "dark-mode",
+    "vitre",
+    "vitre-ui",
+    "ui",
+    "alerts"
   ],
   "main": "vitre.css",
   "style": "vitre.css",
   "unpkg": "vitre.css",
   "jsdelivr": "vitre.css",
+  "exports": {
+    ".": "./vitre.css",
+    "./vitre.css": "./vitre.css",
+    "./vitre-base.css": "./vitre-base.css",
+    "./vitre.js": "./vitre.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "vitre-base.css",
     "vitre.css",
+    "vitre.js",
     "README.md",
+    "REFERENCE.md",
     "LICENSE",
     "CHANGELOG.md"
   ],
   "scripts": {
-    "check": "npm pack --dry-run",
+    "check": "node --check vitre.js && npm pack --dry-run",
     "release": "npm publish --access public"
   }
 }
