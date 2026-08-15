@@ -12,7 +12,7 @@ Everything ships from the repository root — there is no `src/` and no build st
 - `REFERENCE.md` — the complete `--vitre-*` custom property reference
 - `README.md` — user-facing documentation
 
-Do not reintroduce a `src/` copy of `vitre.js`. It previously existed as a hand-synced duplicate of the root file, drifted, and shipped a syntax error to npm in 0.4.0. One file per language, at the root.
+Do not reintroduce a `src/` copy of `vitre.js`. It previously existed as a hand-synced duplicate of the root file, drifted out of sync, and ended up carrying a syntax error that nothing caught because no build or test ever parsed it. One file per language, at the root.
 
 ## Build, Test, and Development Commands
 

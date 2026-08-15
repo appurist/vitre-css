@@ -7,7 +7,7 @@
 - Added a `data-kind="splitter"` component for resizable pane handles.
 - Added a `data-kind="tabs"` component built on the ARIA tablist pattern, with generated `aria-*` wiring, roving tabindex, arrow/`Home`/`End` keyboard support, vertical orientation, and a `vitre:tabchange` event. Without JavaScript the tab strip is hidden and all panels render stacked, so content stays reachable.
 - Added `REFERENCE.md`, a complete CSS custom property reference, and included it in the published package.
-- Fixed a duplicate `COMPONENTS` declaration that made the ESM entry point of `vitre-js@0.4.0` fail to parse for npm and bundler consumers.
+- Fixed a duplicate `COMPONENTS` declaration in the JavaScript entry point. It was introduced in `vitre-js` after 0.4.0 and never reached npm, so no published release was affected.
 - Collapsed the previously hand-synced `src/vitre.js` and `vitre.js` duplicates into a single root `vitre.js`.
 - Added a `node --check` syntax gate to the package check step so unparseable JavaScript cannot be published.
 
