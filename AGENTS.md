@@ -61,3 +61,5 @@ Pull requests should include:
 1. Bump the version in all four places listed under Versioning.
 2. Run `npm run check` and confirm the published file list is correct.
 3. Merge to `main`, then push a `vX.Y.Z` tag. The `Release` workflow publishes to npm using Trusted Publishing.
+
+If the workflow fails, it opens an issue titled `Release <tag> failed to publish`. A failed release is otherwise silent — the tag exists, so it looks shipped, while nothing reached npm. That is exactly how the splitter component sat unreleased for two months. Do not close that issue without either publishing or deleting the tag.

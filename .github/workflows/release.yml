@@ -37,3 +37,39 @@ jobs:
 
       - name: Publish package
         run: npm publish --access public
+
+  notify-failure:
+    name: Report a failed release
+    needs: publish
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      # A failed release is silent otherwise: the tag exists, so it looks
+      # released, but nothing reached npm. This opens an issue so the gap
+      # cannot go unnoticed.
+      - name: Open an issue for the failed release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: Release ${{ github.ref_name }} failed to publish
+          ISSUE_BODY: |
+            The `Release` workflow for tag `${{ github.ref_name }}` did not publish to npm.
+
+            [View the failed run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            The tag now exists in this repository but no matching version reached the
+            registry, so the release looks done while it is not. Common causes:
+
+            - The tag does not match the `version` in `package.json`.
+            - `npm run check` failed, meaning `vitre.js` did not parse.
+            - npm Trusted Publishing rejected the request.
+
+            To recover: fix the cause on `main`, delete the tag locally and on the
+            remote, then re-tag the corrected commit.
+        run: |
+          gh issue create \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$ISSUE_TITLE" \
+            --body "$ISSUE_BODY"
