@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added a `Check` workflow so `npm run check` runs on every push and pull request. Previously these checks ran only from the release workflow, after the tag already existed.
+- Extended `npm run check` with `scripts/check.mjs`, which verifies that the version agrees across `package.json`, all three shipped file banners, and the top `CHANGELOG.md` entry; that every `--vitre-*` property is declared, used, and documented consistently; that every `data-kind` in `vitre.js` is styled in `vitre.css`; and that every file in the published `files` list exists.
+- Declared `--vitre-splitter-size`, `--vitre-splitter-bg`, and `--vitre-splitter-active-bg` in the theme layer. They were documented in `REFERENCE.md` and read through `var()` fallbacks, but never defined, so they did not appear in devtools and could not be discovered as theme tokens.
+- Added the missing version and license banner to `vitre-base.css`.
+
 ## 1.6.0 - 2026-08-15
 
 - Merged the `vitre-js` project into this package. Vitre is now a single project shipping both the stylesheet and optional behavior helpers, released and versioned together.

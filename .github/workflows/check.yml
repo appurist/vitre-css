@@ -1,0 +1,27 @@
+name: Check
+
+# The release workflow runs these same checks, but only once a tag already
+# exists — too late to be a gate. This runs them on every change instead.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check repository consistency
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Check package
+        run: npm run check

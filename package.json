@@ -48,7 +48,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "check": "node --check vitre.js && npm pack --dry-run",
+    "check": "node --check vitre.js && node scripts/check.mjs && npm pack --dry-run",
     "release": "npm publish --access public"
   }
 }
