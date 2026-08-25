@@ -147,6 +147,9 @@
     --vitre-tablist-border: var(--vitre-border);
     --vitre-tablist-border-width: 1px;
     --vitre-tab-panel-padding-block: var(--vitre-space-4, 1rem);
+    --vitre-splitter-size: 0.375rem;
+    --vitre-splitter-bg: var(--vitre-border);
+    --vitre-splitter-active-bg: var(--vitre-primary);
 
     --vitre-control-bg: var(--vitre-surface-strong);
     --vitre-control-border: var(--vitre-border);

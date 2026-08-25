@@ -1,3 +1,9 @@
+/*!
+ * Vitre UI v1.6.0 - vitre-base.css
+ * Optional first-paint baseline. Load before vitre.css.
+ * MIT License
+ */
+
 @layer vitre.reset, vitre.theme, vitre.light, vitre.dark, vitre.base;
 
 @layer vitre.reset {
