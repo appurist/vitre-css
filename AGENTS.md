@@ -44,7 +44,7 @@ Naming guidance:
 
 - CSS custom properties: `--vitre-*`
 - JavaScript-generated attributes: `data-v-*`
-- Markdown files use CRLF line endings
+- Every text file uses LF line endings, enforced by `.gitattributes` (`* text=auto eol=lf`) and mirrored in `.editorconfig`
 
 Prefer exposing a new `--vitre-*` variable over expecting users to override element rules.
 

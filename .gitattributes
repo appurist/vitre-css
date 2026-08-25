@@ -1,0 +1,18 @@
+# LF everywhere — in the repository and in the working tree, on every platform.
+#
+# Without this, a Windows checkout could carry CRLF while git stored LF, and any
+# edit produced a whole-file diff: vitre.js once showed 642 changed lines for
+# zero content change. Normalizing here means the diff is always the change.
+* text=auto eol=lf
+
+# Binary files git must never touch.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp3 binary
+*.mp4 binary
